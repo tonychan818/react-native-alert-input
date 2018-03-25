@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet,View,Text,ScrollView,TextInput} from 'react-native';
+import {StyleSheet,View,Text,ScrollView,TextInput,TouchableOpacity} from 'react-native';
 
 export default class extends React.Component{
   static defaultProps={
@@ -16,11 +16,10 @@ export default class extends React.Component{
     placeholder:'',
     num:1,
     content:[],
-    defaultText:''
   };
   constructor(props){
     super(props);
-    this.state={content:[]};
+    this.state={content:props.content};
   }
   render(){
     const content=this.state.content;
@@ -31,7 +30,7 @@ export default class extends React.Component{
         myContent.push(
           <TextInput
             key={'input_'+i}
-            value={this.props.defaultText}
+            value={content[i]}
             style={[styles.input, this.props.inputStyle]}
             autoFocus={i===0?true:false}
             onChangeText={(text) => {
@@ -48,7 +47,7 @@ export default class extends React.Component{
         myContent.push(this.props.content[i]);
     return(
       this.props.show?
-        <ScrollView style={styles.masker} keyboardDismissMode={'on-drag'}>
+        <View style={styles.masker} keyboardDismissMode={'on-drag'}>
           <View style={[styles.container,this.props.style]}>
             {this.props.title?(typeof this.props.title==='string'?<Text style={styles.title}>{this.props.title}</Text>:this.props.title):null}
             {myContent}
@@ -57,7 +56,7 @@ export default class extends React.Component{
               <Text style={[styles.btn,this.props.submitStyle]} onPress={()=>this.props.onSubmit(num===1?this.state.content[0]:this.state.content)}>{this.props.submitText}</Text>
             </View>
           </View>
-        </ScrollView>:null
+        </View>:null
     );
   }
 }
