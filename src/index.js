@@ -15,7 +15,8 @@ export default class extends React.Component{
     inputStyle:{},
     placeholder:'',
     num:1,
-    content:[]
+    content:[],
+    defaultText:''
   };
   constructor(props){
     super(props);
@@ -30,6 +31,7 @@ export default class extends React.Component{
         myContent.push(
           <TextInput
             key={'input_'+i}
+            value={this.props.defaultText}
             style={[styles.input, this.props.inputStyle]}
             autoFocus={i===0?true:false}
             onChangeText={(text) => {
